@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Book {
+    string title;
+    string author;
+    string ISBN;
+    bool available;
+    int dueDate;
+};
+
+
+void addBook(vector<Book>& database) {
+    Book book;
+    cout << "Enter book title: ";
+    cin >> book.title;
+    cout << "Enter author: ";
+    cin >> book.author;
+    cout << "Enter ISBN: ";
+    cin >> book.ISBN;
+    book.available = true;
+    database.push_back(book);
+    cout << "Book added to the database." << endl;
+}
+
+
+void searchBooks(const vector<Book>& database, const string& query) {
+    for (const Book& book : database) {
+        if (book.title == query || book.author == query || book.ISBN == query) {
+            cout << "Title: " << book.title << " | Author: " << book.author << " | ISBN: " << book.ISBN << endl;
+        }
+    }
+}
+
+int main() {
+    vector<Book> library;
+    int choice;
+    string query; 
+    while (true) {
+        cout << "Library System Menu:" << endl;
+        cout << "1. Add Book" << endl;
+        cout << "2. Search Books" << endl;
+        cout << "3. Check Out Book" << endl;
+        cout << "4. Return Book" << endl;
+        cout << "5. Calculate Fine" << endl;
+        cout << "6. Quit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addBook(library);
+                break;
+            case 2:
+                cout << "Enter title, author, or ISBN to search: ";
+                cin >> query; 
+                searchBooks(library, query);
+                break;
+            
+            case 6:
+                cout << "Goodbye!" << endl;
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+
+    return 0;
+}
